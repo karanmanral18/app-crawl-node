@@ -1,11 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { clientIndex } from '../constant/client.elastic';
-import { SearchServiceInterface } from 'src/interfaces/search.service.interface';
-import { ClientModel } from 'src/database/models/client.model';
+import { SearchServiceInterface } from '../../../interfaces/search.service.interface';
 import { OnEvent } from '@nestjs/event-emitter';
-import { ClientCreatedEvent } from 'src/client/events/client-created.event';
-import { ClientDestroyedEvent } from 'src/client/events/client-destroyed.event ';
-import { ClientUpdatedEvent } from 'src/client/events/client-updated.event';
+import { ClientCreatedEvent } from '../../../client/events/client-created.event';
+import { ClientDestroyedEvent } from '../../../client/events/client-destroyed.event ';
+import { ClientUpdatedEvent } from '../../../client/events/client-updated.event';
 
 @Injectable()
 export class ClientElasticIndex {

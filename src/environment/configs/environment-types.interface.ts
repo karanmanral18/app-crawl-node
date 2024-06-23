@@ -1,5 +1,5 @@
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
-import { ConnectionNames } from 'src/database/connection-names';
+import { ConnectionNames } from '../../database/connection-names';
 
 export interface DatabaseConnectionConfig extends SequelizeModuleOptions {
   migrationDirectory: string;

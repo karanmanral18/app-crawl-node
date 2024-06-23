@@ -11,6 +11,7 @@ import { PaginateOverwriteModule } from './paginate-overwrite/paginate-overwrite
 import { ElasticSearchModule } from './elastic-search/elastic-search.module';
 import { CommonModule } from './common/common.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { CliCommandsModule } from './cli-commands/cli-commands.module';
 
 const envFileName = getEnvFileName();
 
@@ -33,6 +34,7 @@ const envFileName = getEnvFileName();
       maxListeners: 50000,
       verboseMemoryLeak: true,
     }),
+    CliCommandsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

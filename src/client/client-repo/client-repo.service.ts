@@ -4,10 +4,10 @@ import { InjectModel } from '@nestjs/sequelize';
 import {
   ClientListingFilters,
   ClientModel,
-} from 'src/database/models/client.model';
+} from '../../database/models/client.model';
 import { Op, Transaction } from 'sequelize';
 import { PaginateOptions, PaginateService } from 'nestjs-sequelize-paginate';
-import { SequelizePagination } from 'src/interfaces/sequelize-pagination.interface';
+import { SequelizePagination } from '../../interfaces/sequelize-pagination.interface';
 
 @Injectable()
 export class ClientRepoService {

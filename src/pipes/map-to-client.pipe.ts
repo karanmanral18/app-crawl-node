@@ -1,6 +1,6 @@
 import { Injectable, PipeTransform } from '@nestjs/common';
-import { ClientRepoService } from 'src/client/client-repo/client-repo.service';
-import { ClientModel } from 'src/database/models/client.model';
+import { ClientRepoService } from '../client/client-repo/client-repo.service';
+import { ClientModel } from '../database/models/client.model';
 
 @Injectable()
 export class MapToClientPipe implements PipeTransform {

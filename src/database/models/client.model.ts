@@ -9,9 +9,9 @@ import {
 } from 'sequelize-typescript';
 import { BaseModel } from './base.model';
 import { Op, FindOptions, Transaction } from 'sequelize';
-import { SystemEvents } from 'src/system-events/system-events';
-import { ClientCreatedEvent } from 'src/client/events/client-created.event';
-import { ClientDestroyedEvent } from 'src/client/events/client-destroyed.event ';
+import { SystemEvents } from '../../system-events/system-events';
+import { ClientCreatedEvent } from '../../client/events/client-created.event';
+import { ClientDestroyedEvent } from '../../client/events/client-destroyed.event ';
 
 export interface ClientListingFilters {
   id?: number;

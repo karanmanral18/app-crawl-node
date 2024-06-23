@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
-import { SearchServiceInterface } from 'src/interfaces/search.service.interface';
+import { SearchServiceInterface } from '../../../interfaces/search.service.interface';
 import { ConfigSearch } from '../config/config.search';
 
 @Injectable()

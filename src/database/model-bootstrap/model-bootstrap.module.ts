@@ -9,7 +9,7 @@ import { DEFAULT_CONNECTION_NAME } from '@nestjs/sequelize/dist/sequelize.consta
 import { Sequelize } from 'sequelize-typescript';
 import { EntitiesMetadataStorage } from '@nestjs/sequelize/dist/entities-metadata.storage';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { EventRegisterCallbackService } from 'src/common/event-register-callback/event-register-callback.service';
+import { EventRegisterCallbackService } from '../../common/event-register-callback/event-register-callback.service';
 
 const providers: Provider[] = DefaultConnectionModels.map((model: any) => ({
   provide: getModelToken(model, DEFAULT_CONNECTION_NAME),

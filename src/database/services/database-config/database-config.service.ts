@@ -4,8 +4,8 @@ import {
   SequelizeModuleOptions,
   SequelizeOptionsFactory,
 } from '@nestjs/sequelize';
-import { ConnectionNames } from 'src/database/connection-names';
-import { DefaultConnectionModels } from 'src/database/model-bootstrap/default-connection-models';
+import { ConnectionNames } from '../../../database/connection-names';
+import { DefaultConnectionModels } from '../../../database/model-bootstrap/default-connection-models';
 
 @Injectable()
 export class DatabaseConfigService implements SequelizeOptionsFactory {

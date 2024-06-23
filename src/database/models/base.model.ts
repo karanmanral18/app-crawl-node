@@ -1,6 +1,6 @@
 import { AutoIncrement, Column, PrimaryKey, Table } from 'sequelize-typescript';
 import { DatesMapping } from './dates-mapping';
-import { EventRegisterCallbackService } from 'src/common/event-register-callback/event-register-callback.service';
+import { EventRegisterCallbackService } from '../../common/event-register-callback/event-register-callback.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Table({})

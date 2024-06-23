@@ -9,16 +9,16 @@ import {
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
-import { ClientRepoService } from 'src/client/client-repo/client-repo.service';
+import { ClientRepoService } from '../../../client/client-repo/client-repo.service';
 import {
   ClientListingFilters,
   ClientModel,
-} from 'src/database/models/client.model';
-import { CreateClientDto } from 'src/dtos/createClientDto';
-import { UpdateClientDto } from 'src/dtos/updateClientDto';
-import { SequelizeToNotFoundInterceptor } from 'src/interceptors/not-found.interceptor';
-import { MapToClientPipe } from 'src/pipes/map-to-client.pipe';
-import { PaginationQueryToNumberPipe } from 'src/pipes/pagination-query-to-number.pipe';
+} from '../../../database/models/client.model';
+import { CreateClientDto } from '../../../dtos/createClientDto';
+import { UpdateClientDto } from '../../../dtos/updateClientDto';
+import { SequelizeToNotFoundInterceptor } from '../../../interceptors/not-found.interceptor';
+import { MapToClientPipe } from '../../../pipes/map-to-client.pipe';
+import { PaginationQueryToNumberPipe } from '../../../pipes/pagination-query-to-number.pipe';
 
 @Controller('clients')
 export class ClientController {
