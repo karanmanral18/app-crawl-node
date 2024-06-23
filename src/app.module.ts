@@ -8,6 +8,9 @@ import { DatabaseModule } from './database/database.module';
 import { ClientModule } from './client/client.module';
 import { ModelBootstrapModule } from './database/model-bootstrap/model-bootstrap.module';
 import { PaginateOverwriteModule } from './paginate-overwrite/paginate-overwrite.module';
+import { ElasticSearchModule } from './elastic-search/elastic-search.module';
+import { CommonModule } from './common/common.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 const envFileName = getEnvFileName();
 
@@ -22,6 +25,14 @@ const envFileName = getEnvFileName();
     ClientModule,
     ModelBootstrapModule,
     PaginateOverwriteModule,
+    ElasticSearchModule,
+    CommonModule,
+    EventEmitterModule.forRoot({
+      wildcard: true,
+      delimiter: '.',
+      maxListeners: 50000,
+      verboseMemoryLeak: true,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

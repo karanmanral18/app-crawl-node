@@ -8,16 +8,29 @@ import { DefaultConnectionModels } from './default-connection-models';
 import { DEFAULT_CONNECTION_NAME } from '@nestjs/sequelize/dist/sequelize.constants';
 import { Sequelize } from 'sequelize-typescript';
 import { EntitiesMetadataStorage } from '@nestjs/sequelize/dist/entities-metadata.storage';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventRegisterCallbackService } from 'src/common/event-register-callback/event-register-callback.service';
 
 const providers: Provider[] = DefaultConnectionModels.map((model: any) => ({
   provide: getModelToken(model, DEFAULT_CONNECTION_NAME),
-  useFactory: (connection: Sequelize) => {
+  useFactory: (
+    connection: Sequelize,
+    eventEmitter: EventEmitter2,
+    eventRegisterCallback: EventRegisterCallbackService,
+  ) => {
+    model.EventEmitter = eventEmitter;
+    model.EventCallBackService = eventRegisterCallback;
+
     if (!connection) {
       return model;
     }
     return connection.getRepository(model as any);
   },
-  inject: [getConnectionToken(DEFAULT_CONNECTION_NAME)],
+  inject: [
+    getConnectionToken(DEFAULT_CONNECTION_NAME),
+    EventEmitter2,
+    EventRegisterCallbackService,
+  ],
 }));
 
 EntitiesMetadataStorage.addEntitiesByConnection(

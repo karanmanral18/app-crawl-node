@@ -1,6 +1,17 @@
-import { Column, Table, Unique, Scopes } from 'sequelize-typescript';
+import {
+  Column,
+  Table,
+  Unique,
+  Scopes,
+  AfterCreate,
+  AfterDestroy,
+  AfterUpdate,
+} from 'sequelize-typescript';
 import { BaseModel } from './base.model';
-import { Op, FindOptions } from 'sequelize';
+import { Op, FindOptions, Transaction } from 'sequelize';
+import { SystemEvents } from 'src/system-events/system-events';
+import { ClientCreatedEvent } from 'src/client/events/client-created.event';
+import { ClientDestroyedEvent } from 'src/client/events/client-destroyed.event ';
 
 export interface ClientListingFilters {
   id?: number;
@@ -74,4 +85,49 @@ export class ClientModel extends BaseModel<ClientModel> {
   @Unique
   @Column
   public email: string;
+
+  @AfterCreate
+  public static triggerClientCreated = async (
+    instance: ClientModel,
+    options: { transaction?: Transaction },
+  ) => {
+    ClientModel.EventCallBackService.registerEventCallBacks(
+      () =>
+        ClientModel.EventEmitter.emitAsync(
+          SystemEvents.ClientCreated,
+          new ClientCreatedEvent(instance),
+        ),
+      options.transaction,
+    );
+  };
+
+  @AfterDestroy
+  public static triggerClientDestoyed = async (
+    instance: ClientModel,
+    options: { transaction?: Transaction },
+  ) => {
+    ClientModel.EventCallBackService.registerEventCallBacks(
+      () =>
+        ClientModel.EventEmitter.emitAsync(
+          SystemEvents.ClientDestroyed,
+          new ClientDestroyedEvent(instance),
+        ),
+      options.transaction,
+    );
+  };
+
+  @AfterUpdate
+  public static triggerClientUpdated = async (
+    instance: ClientModel,
+    options: { transaction?: Transaction },
+  ) => {
+    ClientModel.EventCallBackService.registerEventCallBacks(
+      () =>
+        ClientModel.EventEmitter.emitAsync(
+          SystemEvents.ClientUpdated,
+          new ClientDestroyedEvent(instance),
+        ),
+      options.transaction,
+    );
+  };
 }

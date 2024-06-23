@@ -47,7 +47,8 @@ export class ClientController {
   async createNewClient(
     @Body(new ValidationPipe()) createClientDto: CreateClientDto,
   ) {
-    return this.clientRepoService.create(createClientDto);
+    const client = this.clientRepoService.create(createClientDto);
+    return client;
   }
 
   @UseInterceptors(SequelizeToNotFoundInterceptor)
