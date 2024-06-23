@@ -95,14 +95,12 @@ export class ClientRepoService {
   ): Promise<ClientModel> {
     const { cin, email } = newClient;
 
-    const existingClient = await this.clientModel.findOne({
+    const existingClient = await this.clientModel.findAll({
       where: { [Op.or]: [{ email }, { cin }] },
     });
-
-    if (existingClient && existingClient.id !== client.id) {
-      const duplicateField = existingClient.email === email ? 'email' : 'cin';
+    if (existingClient && existingClient.length > 1) {
       throw new ConflictException(
-        `A client with the provided ${duplicateField} already exists.`,
+        `A client with the provided cin or email already exists.`,
       );
     }
 
