@@ -16,13 +16,13 @@ export class ElasticSearchPayload {
 export class ClientSearchObject {
   public static searchObject(q: ClientListingFilters) {
     const body = this.elasticSearchPayload(q);
-    return { index: clientIndex._index, body, q };
+    return { index: clientIndex._index, body };
   }
 
   public static elasticSearchPayload(q: any): ElasticSearchPayload {
     const shouldClauses = [];
 
-    if (q && (q.id || q.name || q.email || q.cin)) {
+    if (q) {
       if (q.id) shouldClauses.push({ match: { id: q.id } });
       if (q.name) shouldClauses.push({ match: { name: q.name } });
       if (q.email) shouldClauses.push({ match: { email: q.email } });
@@ -39,7 +39,10 @@ export class ClientSearchObject {
     } else {
       query = { match_all: {} };
     }
-    const fromRecord = q.perPage * (q.page - 1) + 1;
+    let fromRecord = 0;
+    if (q.perPage && q.page) {
+      fromRecord = q.perPage * (q.page - 1);
+    }
     return new ElasticSearchPayload(q.perPage, fromRecord, query);
   }
 }
