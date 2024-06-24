@@ -13,5 +13,6 @@ import { SearchService } from '../elastic-search/services/search/search.service'
     },
   ],
   controllers: [ClientController],
+  exports: [ClientRepoService],
 })
 export class ClientModule {}

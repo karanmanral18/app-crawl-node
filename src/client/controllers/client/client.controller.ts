@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   Post,
   Query,
@@ -19,10 +20,16 @@ import { UpdateClientDto } from '../../../dtos/updateClientDto';
 import { SequelizeToNotFoundInterceptor } from '../../../interceptors/not-found.interceptor';
 import { MapToClientPipe } from '../../../pipes/map-to-client.pipe';
 import { PaginationQueryToNumberPipe } from '../../../pipes/pagination-query-to-number.pipe';
+import { SearchServiceInterface } from '../../../interfaces/search.service.interface';
+import { ClientSearchObject } from '../../../client/client.search.object';
 
 @Controller('clients')
 export class ClientController {
-  constructor(private clientRepoService: ClientRepoService) {}
+  constructor(
+    private clientRepoService: ClientRepoService,
+    @Inject('SearchServiceInterface')
+    private readonly searchService: SearchServiceInterface<any>,
+  ) {}
 
   @UseInterceptors(SequelizeToNotFoundInterceptor)
   @Get('')
@@ -66,5 +73,16 @@ export class ClientController {
     @Param('clientId', MapToClientPipe) client: ClientModel,
   ): Promise<null> {
     return this.clientRepoService.delete(client);
+  }
+
+  @Get('elastic/search')
+  async searchClients(
+    @Query('perPage', PaginationQueryToNumberPipe) offset = 15,
+    @Query('page', PaginationQueryToNumberPipe) page = 1,
+
+    @Query() filters: ClientListingFilters = {},
+  ) {
+    const data = ClientSearchObject.searchObject(filters);
+    return await this.searchService.searchIndex(data);
   }
 }
